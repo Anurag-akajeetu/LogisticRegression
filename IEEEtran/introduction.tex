@@ -1,0 +1,23 @@
+% !TEX root = project_phase1.tex
+\IEEEraisesectionheading{\section{Introduction}\label{sec:introduction}}
+\IEEEPARstart{L}{ogistic} regression (LR) uses the logistic function to compute the probability with which a data point expressed as a feature vector can be classified as belonging to a particular class. As LR is predominantly used for the binary classification problem (although LR can as well be used for multi-classification), the probabilities of a feature vector belonging to either of the classes are compared and the larger probability among them determines the classification output. 
+
+For instance, let a feature vector to be classified be $\vect{D} = \left[d_1,d_2,\ldots,d_n \right]^T $. The logistic (or the sigmoid) function can be written as 
+\begin{equation} 
+{h(x) = \frac{1}{1 + e^{-x} } }
+\label{eqn1}
+\end{equation} 
+
+We can notice that the feature vector $\vect{D}$ needs to be changed to a scalar value $x$ to substitute in Equation~\ref{eqn1}.  The computation of the scalar, $x$, can be done by a weighted combination of all the features in $\vect{D}$ which can be written as $ x  = w_0 + \sum_{i=1}^{n} {w_i * d_i}$. The weights ranging from $w_0$ to $w_n$ need to be learnt from the training data in order to compute the scalar, $x$ for each of the test data and thereby classify the test feature vectors. 
+
+One of the well-known methods to learn the weights (or in general the parameters needed) is to express the learning process as an optimization function that can be approximated to the target value iteratively. In each iteration, we can learn the parameters incrementally thereby refining them through a step-by-step process. An example to such approaches is the famous Stochastic Gradient Descent (SGD) that learns the parameters by descending gradually on the gradient of a curve which is formed out of the cost function to be minimized. An important thing to note here is that SGD expresses the optimization as a minimization though it is not necessarily the case in LR. This is because, in LR, we want to maximize the joint probability of the positively and negatively classified training vectors thereby ensuring that the classification outcome matches with the expected labeling provided in the training data. There are two approaches that formulate this maximization process as a function $f_{opt}$ that can be minimized:
+
+\begin{itemize}
+	\item Negative log likelihood based approach computes the joint probability (likelihood) on all the i.i.d training samples in the data, applies log on the likelihood, and minimizes its negation.
+	\item Hinge loss based solution minimizes the error associated with mis-prediction on the training data which is also called as loss or misclassification penalty. 
+\end{itemize}
+
+The basic methodology of SGD using one of the two cost functions listed above involves guessing an initial set of the $n+1$ weights, $w_0$, $w_1$,..,$w_n$, and iteratively updating them such that the value of the cost function decreases in each iteration by using the updated set of weights from the previous iteration. At any given iteration, the weight corresponding to the $i$th feature is updated by using $ w_{i+1} = w_i - (\alpha * \frac{\partial f_{opt}}{\partial w_i}) $. As we can notice from the expression, the weight at the $i+1$th iteration is computed by subtracting a finite multiple (or step) of the gradient of the function to be minimized. The step is dependent on the learning rate, $\alpha$ which determines the speed of convergence in the number of iterations as well as the local minimum that is obtained at convergence. 
+
+We borrow two approaches from the literature to modify the weight updation step in each iteration of SGD. These approaches are termed momentums and we compare two such solutions - Polyak's classical momentum~\cite{polyak} and Nesterov's momentum~\cite{nesterov} which is the core focus of this work. 
+

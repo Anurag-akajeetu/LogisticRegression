@@ -1,0 +1,29 @@
+% !TEX root = project_phase1.tex
+\section{Optimization functions\label{sec:optfunc}}
+As we described in Section~\ref{sec:introduction}, we use two optimization functions to be minimized in SGD, i.e., negative log likelihood and hinge loss for an LR classification machine which we detail out here. 
+
+\subsection{Negative log likelihood\label{sec:loglh}}
+Assuming that all the sample vectors drawn from the training data $\vect{D}$ are independent and identically distributed (i.i.d), we can compute the joint probability of each of the training samples belonging to the same class as determined by the class label which can be maximized.
+
+Let us assume that there are $P$ positively labeled points belonging to class $1$ and $N$ negatively labeled points belonging to class $-1$. Corresponding to this labeling, we can compute the probabilities from the logistic function in Equation~\ref{eqn1} as $\prod_{P} h(x) \prod_{N} 1-h(x)$ maximizing which is equivalent to minimizing the negation of it. To convert the product into a sum that is friendly to differentiate for gradient computation, we get $-\sum_{P} log(h(x)) - \sum_{N} log(1-h(x))$ which stands for $f_{opt}$ as the minimization function to be optimized using SGD as mentioned in Section~\ref{sec:introduction}.
+
+\subsection{Hinge loss\label{sec:hinge}}
+The hinge loss is computed as the penalty of misclassification that we want to minimize.  We find the weights which minimize the loss function that is written as follows:
+
+\begin{equation}
+w^* = \argmin_{w} {loss_{hinge}}\\ = \argmin_{w}{\sum_{i}max\{0,1-y_ih(x)\}}
+\label{eqn2}
+\end{equation}
+
+We know that h(x) from Equation~\ref{eqn1} is dependent on $ x  = w_0 + \sum_{i=1}^{n} {w_i * d_i}$ that helps in inferring the value of $w_0$ to $w_n$ by computing the gradient on $loss_{hinge}$ using partial derivatives w.r.t. each of the weight variables. The basic idea of Equation~\ref{eqn2} is to penalize when the sign of $y_i$  (such that $\forall y_i \in \{-1,+1\}$), the true label, is different from the estimation by the sigmoid function $h(x)$. Hence the derivative of $loss_{hinge}$ w.r.t. the $i$th weight parameter in LR , $w_i$ is written as:
+
+\begin{equation}
+\frac{\partial{loss_{hinge}}}{\partial w_i}=
+\begin{cases}
+0  & y_ih(x) \geq 1 \\
+-y_i\frac{\partial{h(x)}}{\partial w_i} & y_ih(x) < 1
+\end{cases}
+\label{eqn3}
+\end{equation}
+
+The gradient w.r.t. hinge loss is taking as the summation of the partial gradients computed over all the weights, $w_i$, as per Equation~\ref{eqn3}.

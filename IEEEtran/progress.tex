@@ -1,0 +1,37 @@
+% !TEX root = project_phase1.tex
+\section{Progress and Timeline}
+\label{sec:timeline}
+We implemented LR with the two optimization functions described in Section~\ref{sec:optfunc}. We have used an Entity Resolution dataset from Amazon-GoogleProducts~\cite{ERdataset} \url{http://dbs.uni-leipzig.de/en/research/projects/object_matching/fever/benchmark_datasets_for_entity_resolution} to report our initial results. The dataset contains the product details from Amazon and Google manufactured products and the entity resolution task is to identify tuple pairs referring to the same product from both the individual datasets. The provided dataset contains 1300 matching tuple pairs whereas the negative tuples are filtered from the remaining tuple pairs by choosing non-trivial pairs which look similar enough however referring to different products summing up to 96K tuple pairs. We set the default values of the parameters, learning rate as well as the convergence threshold, to 0.001. We ran 5-fold experiments by expressing the two outcomes of the Entity Resolution as a binary classification task using LR upon these datasets to compare the performance of optimizing using negative log likelihood to that obtained using hinge loss.
+
+\begin{table}[htb]
+\caption{Logistic Regression with negative log likelihood Vs hinge loss on Amazon-GoogleProducts: 5-fold experiments}
+\centering
+\begin{tabular}{c c c c}
+\hline\hline
+Method & Avg Precision & Avg Recall & Avg F1-Measure \\ [0.5ex] % inserts table %heading
+\hline
+-ve log lh&0.721&0.999&0.838 \\
+Hinge loss&0.484&1.0&0.652 \\ [1ex]
+\hline
+\end{tabular}
+\label{table:hingevsloglh}
+\end{table}
+
+Owing to the few matching products in the dataset, the recall is close to 100\% using both the optimization approaches but the precision is the determining factor showing the superiority of negative log likelihood over the hinge loss in precision. A more detailed comparison will be provided after crafting our own manual dataset and introducing the matches and non-matches synthetically. 
+
+\begin{table}[htb]
+\caption{Timeline}
+\centering
+\begin{tabular}{c c c c}
+	\hline\hline
+	Task & Start Date & End Date & In-charge\\ [0.5ex] % inserts table %heading
+	\hline
+Crafting datasets & 11/19/16 & 11/23/16 & Anurag Agrawal\\
+L2-regularization & 11/19/16 & 11/23/16 & Vamsi Meduri\\
+Polyak's method & 11/23/16 & 11/25/16 & Anurag Agrawal\\
+Nesterov's method & 11/23/16 & 11/25/16 & Vamsi Meduri\\
+Experiments & 11/25/16 & 11/30/16 & Anurag and Vamsi\\
+\hline
+\end{tabular}
+\label{table:timeline}
+\end{table}

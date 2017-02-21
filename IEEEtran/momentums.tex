@@ -1,0 +1,23 @@
+% !TEX root = project_phase1.tex
+\section{Momentums\label{sec:momentums}}
+We describe the methods of momentums employed in SGD in the weight updation step. Momentum according to theoretical physics indicates the product of the mass and velocity. Though the term does not borrow the definition per se, it indicates the rate of change of the weight vector as we approach convergence in order to optimize either of the functions discussed in Section~\ref{sec:optfunc}. As described in Section~\ref{sec:introduction}, $ w_{i+1} = w_i - (\alpha * \frac{\partial f_{opt}}{\partial w_i})$. This is modified according to the various kinds of momentums.
+
+\subsection{Polyak's Classical Momentum\label{sec:polyak}}
+Polyak's classical momentum aims at persisting the velocity or the direction and magnitude of change to the weight vector in the existing direction. Hence, the change to the weight parameter, $w_t$, corresponding to the $t$th SGD iteration, can be expressed as weighted combination of the velocity seen so far $v_{t}$, and the gradient of $f_{opt}$ at $w_t$, to obtain the change to be made, $v_{t+1}$.
+
+\begin{equation}
+v_{t+1} = \mu v_t - \alpha\frac{\partial f_{opt}}{\partial w}_{(w_t)}
+\label{eqn4}
+\end{equation}
+
+\begin{equation}
+w_{t+1} = w_t + v_{t+1}
+\end{equation}
+
+\subsection{Nesterov's Accelerated Gradient (NAG)\label{sec:nag}}
+NAG makes a subtle change to the Polyak's momentum by computing the gradient of $f_{opt}$ at $w_t+ \mu v_t$ instead of $w_t$ keeping the remaining part of the update equation the same as the classical momentum in Equation~\ref{eqn4}. Thus it can be formulated as follows:
+
+\begin{equation}
+v_{t+1} = \mu v_t - \alpha\frac{\partial f_{opt}}{\partial w}_{(w_t+\mu v_t)}
+\label{eqn5}
+\end{equation}

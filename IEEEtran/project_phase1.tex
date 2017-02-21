@@ -1,0 +1,84 @@
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+\ifCLASSOPTIONcompsoc
+  % IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+   \usepackage[pdftex]{graphicx}
+\else
+  \usepackage[dvips]{graphicx}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+
+\usepackage{amsmath}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{fixltx2e}
+\usepackage{stfloats}
+\usepackage{url}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{CSE 569: Project 1.6: Battle of the Momemtums}
+\author{Anurag~Agrawal,~ID: 1207687399
+        and~Venkata~Vamsikrishna~Meduri,~ID:1208577223}% <-this % stops a space
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Computer Society Journals}
+\IEEEtitleabstractindextext{%
+	\justify
+\begin{abstract}
+Two-class classification is a well-studied problem in the machine learning literature. In this work, we pick the basic binary classifier flavor of the logistic regression machine and study the properties of its momentum. We implement the negative log likelihood loss and hinge-loss methods into logistic regression to form the primary baselines. Subsequently, we learn the gradient descent learning procedure using Polyak's classical momentum~\cite{polyak} and Nesterov's accelerated gradient~\cite{nesterov}~\cite{icml13}. We compare all these variants of logistic regression among themselves to understand the properties of the momentum and how they contribute to convergence by an iterative observation of the parameters learnt such as weights and losses. We also study the impact of the L2-regularization upon the stability of learning. We demonstrate the effectiveness of each of the optimization techniques through a case-by-case experimental analysis for the various samples drawn from the real-world datasets for Entity Resolution and the synthetic datasets that we craft manually.
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+%Computer Society, IEEE, IEEEtran, journal, \LaTeX, paper, template.
+logistic regression, Polyak, Nesterov, momentum, regularization, classification, resolution
+\end{IEEEkeywords}}
+
+
+% make the title area
+\maketitle
+\IEEEdisplaynontitleabstractindextext
+\IEEEpeerreviewmaketitle
+\input{introduction}
+\input{approaches} 
+\input{momentums}
+\input{progress}
+\bibliographystyle{IEEEtran} 
+\bibliography{project_phase1}
+\begin{comment}
+\begin{thebibliography}{1}
+	
+	\bibitem{IEEEhowto:kopka}
+	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+	
+\end{thebibliography}
+\end{comment}
+
+
+
+\end{document}
+
+
